@@ -35,7 +35,7 @@
     .content { padding: 16px; }
     .tabs, .row2 { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
     button, input { font: inherit; }
-    .tab, .toggle, .play, .option, .nextbtn {
+    .tab, .toggle, .play, .option, .nextbtn, .examplebtn {
       border: 1px solid #e2e8f0;
       border-radius: 16px;
       background: #fff;
@@ -76,6 +76,8 @@
       border-radius: 18px;
       padding: 14px;
       background: #fff;
+    }
+    .card-top {
       display: flex;
       justify-content: space-between;
       gap: 12px;
@@ -85,7 +87,29 @@
     .en { font-size: 22px; font-weight: 700; }
     .ipa { font-size: 14px; color: #64748b; margin-top: 2px; }
     .zh { font-size: 14px; color: #334155; margin-top: 5px; }
-    .play { white-space: nowrap; padding: 10px 12px; }
+    .rightbtns {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      flex-shrink: 0;
+    }
+    .play, .examplebtn { white-space: nowrap; padding: 10px 12px; }
+    .examplebox {
+      margin-top: 12px;
+      border-top: 1px solid #e2e8f0;
+      padding-top: 12px;
+    }
+    .example-en {
+      font-size: 14px;
+      line-height: 1.6;
+      color: #0f172a;
+    }
+    .example-zh {
+      font-size: 13px;
+      line-height: 1.6;
+      color: #64748b;
+      margin-top: 6px;
+    }
     .panel {
       margin-top: 12px;
       border: 1px solid #e2e8f0;
@@ -114,7 +138,7 @@
       <div class="header">
         <div class="sub">Earth Sciences Vocabulary</div>
         <div class="title">Chapter 14</div>
-        <div class="desc">手機版單字發音＋測驗</div>
+        <div class="desc">手機版單字發音＋測驗＋點開例句</div>
       </div>
 
       <div class="content">
@@ -154,57 +178,57 @@
 
   <script>
     const VOCAB = [
-      { id: 1, en: "bamboo", zh: "竹子", ipa: "[bæmˈbu]" },
-      { id: 2, en: "blossom", zh: "開花；花", ipa: "[ˈblɑsəm]" },
-      { id: 3, en: "bud", zh: "花蕾；芽；發芽", ipa: "[bʌd]" },
-      { id: 4, en: "bush", zh: "灌木叢", ipa: "[bʊʃ]" },
-      { id: 5, en: "coal", zh: "煤", ipa: "[kol]" },
-      { id: 6, en: "crystal", zh: "水晶", ipa: "[ˈkrɪstl]" },
-      { id: 7, en: "disaster", zh: "災害；不幸", ipa: "[dɪˈzæstɚ]" },
-      { id: 8, en: "earthquake", zh: "地震", ipa: "[ˈɝθˌkwek]" },
-      { id: 9, en: "frozen", zh: "冰凍的；凍僵的", ipa: "[ˈfrozn]" },
-      { id: 10, en: "hurricane", zh: "颶風", ipa: "[ˈhɝɪˌken]" },
-      { id: 11, en: "mist", zh: "霧；水汽", ipa: "[mɪst]" },
-      { id: 12, en: "moonlight", zh: "月光", ipa: "[ˈmunˌlaɪt]" },
-      { id: 13, en: "muddy", zh: "泥濘的；混濁的", ipa: "[ˈmʌdi]" },
-      { id: 14, en: "oak", zh: "橡木樹；橡木", ipa: "[ok]" },
-      { id: 15, en: "oxygen", zh: "氧氣", ipa: "[ˈɑksɪdʒən]" },
-      { id: 16, en: "rainfall", zh: "降雨；降雨量", ipa: "[ˈrenˌfɔl]" },
-      { id: 17, en: "ray", zh: "光線", ipa: "[re]" },
-      { id: 18, en: "rotten", zh: "腐爛的", ipa: "[ˈrɑtn]" },
-      { id: 19, en: "scenery", zh: "風景", ipa: "[ˈsinəri]" },
-      { id: 20, en: "shade", zh: "陰涼處；遮蔽", ipa: "[ʃed]" },
-      { id: 21, en: "shell", zh: "貝殼；甲殼；貝殼", ipa: "[ʃɛl]" },
-      { id: 22, en: "smog", zh: "煙霧；霧霾", ipa: "[smɑɡ]" },
-      { id: 23, en: "solar", zh: "太陽的", ipa: "[ˈsolɚ]" },
-      { id: 24, en: "thunderstorm", zh: "雷雨", ipa: "[ˈθʌndɚˌstɔrm]" },
-      { id: 25, en: "tide", zh: "潮汐", ipa: "[taɪd]" },
-      { id: 26, en: "tornado", zh: "龍捲風", ipa: "[tɔrˈnedo]" },
-      { id: 27, en: "tropical", zh: "熱帶的", ipa: "[ˈtrɑpɪkəl]" },
-      { id: 28, en: "vapor", zh: "蒸汽；水汽", ipa: "[ˈvepɚ]" },
-      { id: 29, en: "canyon", zh: "峽谷", ipa: "[ˈkænjən]" },
-      { id: 30, en: "cave", zh: "洞穴", ipa: "[kev]" },
-      { id: 31, en: "cliff", zh: "懸崖", ipa: "[klɪf]" },
-      { id: 32, en: "drought", zh: "乾旱", ipa: "[draʊt]" },
-      { id: 33, en: "iceberg", zh: "冰山", ipa: "[ˈaɪsˌbɝɡ]" },
-      { id: 34, en: "landslide", zh: "山崩；塌方", ipa: "[ˈlændˌslaɪd]" },
-      { id: 35, en: "mainland", zh: "大陸；本土", ipa: "[ˈmenlənd]" },
-      { id: 36, en: "remote", zh: "遙遠的；偏僻的；遙控器", ipa: "[rɪˈmot]" },
-      { id: 37, en: "resource", zh: "資源", ipa: "[rɪˈsɔrs]" },
-      { id: 38, en: "summit", zh: "山頂；頂峰；高峰會", ipa: "[ˈsʌmɪt]" },
-      { id: 39, en: "aquarium", zh: "水族館；魚缸", ipa: "[əˈkwɛriəm]" },
-      { id: 40, en: "claw", zh: "爪子；抓", ipa: "[klɔ]" },
-      { id: 41, en: "creature", zh: "生物", ipa: "[ˈkritʃɚ]" },
-      { id: 42, en: "feather", zh: "羽毛", ipa: "[ˈfɛðɚ]" },
-      { id: 43, en: "fur", zh: "毛皮", ipa: "[fɝ]" },
-      { id: 44, en: "herd", zh: "畜牧群；獸群；放牧", ipa: "[hɝd]" },
-      { id: 45, en: "hive", zh: "蜂巢", ipa: "[haɪv]" },
-      { id: 46, en: "horn", zh: "角；號角；喇叭", ipa: "[hɔrn]" },
-      { id: 47, en: "ivory", zh: "象牙", ipa: "[ˈaɪvəri]" },
-      { id: 48, en: "paw", zh: "爪子；抓", ipa: "[pɔ]" },
-      { id: 49, en: "pest", zh: "害蟲；有害的動物", ipa: "[pɛst]" },
-      { id: 50, en: "species", zh: "物種", ipa: "[ˈspiʃiz]" },
-      { id: 51, en: "web", zh: "蜘蛛網；網狀物", ipa: "[wɛb]" }
+      { id: 1, en: "bamboo", zh: "竹子", ipa: "[bæmˈbu]", exEn: "Pandas mostly eat bamboo.", exZh: "熊貓主要吃竹子。" },
+      { id: 2, en: "blossom", zh: "開花；花", ipa: "[ˈblɑsəm]", exEn: "The cherry trees blossom every spring.", exZh: "櫻桃樹每年春天會開花。" },
+      { id: 3, en: "bud", zh: "花蕾；芽；發芽", ipa: "[bʌd]", exEn: "The flower bud slowly began to open.", exZh: "花蕾慢慢開始綻放。" },
+      { id: 4, en: "bush", zh: "灌木叢", ipa: "[bʊʃ]", exEn: "The children were all hiding in the bush.", exZh: "孩子們全都躲在灌木叢裡。" },
+      { id: 5, en: "coal", zh: "煤", ipa: "[kol]", exEn: "The man shoveled coal into the train.", exZh: "男子把煤鏟入火車。" },
+      { id: 6, en: "crystal", zh: "水晶", ipa: "[ˈkrɪstl]", exEn: "These are expensive wine glasses. They are made out of crystal.", exZh: "這些酒杯很昂貴，它們是用水晶製成。" },
+      { id: 7, en: "disaster", zh: "災害；不幸", ipa: "[dɪˈzæstɚ]", exEn: "There was a terrible disaster and many people were injured.", exZh: "有一場嚴重的災害，許多人受傷了。" },
+      { id: 8, en: "earthquake", zh: "地震", ipa: "[ˈɝθˌkwek]", exEn: "If there is an earthquake, you shouldn't use the elevator.", exZh: "如果有地震，你不應該使用電梯。" },
+      { id: 9, en: "frozen", zh: "冰凍的；凍僵的", ipa: "[ˈfrozn]", exEn: "You can walk on the lake now. It's totally frozen.", exZh: "你現在可以在湖上行走，它整個結冰了。" },
+      { id: 10, en: "hurricane", zh: "颶風", ipa: "[ˈhɝɪˌken]", exEn: "The hurricane destroyed most of the village.", exZh: "颶風摧毀了村子大部分的地區。" },
+      { id: 11, en: "mist", zh: "霧；水汽", ipa: "[mɪst]", exEn: "I can't see anything. There is too much mist in the air.", exZh: "我什麼都看不見，霧太濃了。" },
+      { id: 12, en: "moonlight", zh: "月光", ipa: "[ˈmunˌlaɪt]", exEn: "The moonlight shone upon the lake. It was a beautiful scene.", exZh: "月光照耀在湖面上，這真是美麗的景色。" },
+      { id: 13, en: "muddy", zh: "泥濘的；混濁的", ipa: "[ˈmʌdi]", exEn: "Take off your muddy shoes before you come inside.", exZh: "進屋前把你沾滿泥土的鞋子脫掉。" },
+      { id: 14, en: "oak", zh: "橡木樹；橡木", ipa: "[ok]", exEn: "This coffee table is made out of oak.", exZh: "這張咖啡桌是用橡木製成。" },
+      { id: 15, en: "oxygen", zh: "氧氣", ipa: "[ˈɑksɪdʒən]", exEn: "The diver had to come back to the surface because he ran out of oxygen.", exZh: "那位潛水員必須回到水面，因為他的氧氣用完了。" },
+      { id: 16, en: "rainfall", zh: "降雨；降雨量", ipa: "[ˈrenˌfɔl]", exEn: "Last year, we got much more rainfall.", exZh: "我們去年的降雨量多出許多。" },
+      { id: 17, en: "ray", zh: "光線", ipa: "[re]", exEn: "The sun's rays beat down upon the hikers.", exZh: "太陽光直射在登山者身上。" },
+      { id: 18, en: "rotten", zh: "腐爛的", ipa: "[ˈrɑtn]", exEn: "You shouldn't eat this apple. It's totally rotten.", exZh: "你不該吃這顆蘋果，它整個腐爛了。" },
+      { id: 19, en: "scenery", zh: "風景", ipa: "[ˈsinəri]", exEn: "Let's stop here and look at the beautiful scenery.", exZh: "我們在這停下來，看看美麗的風景吧。" },
+      { id: 20, en: "shade", zh: "陰涼處；遮蔽", ipa: "[ʃed]", exEn: "Cindy sat under the shade of a large tree.", exZh: "Cindy 坐在大樹的陰影下。" },
+      { id: 21, en: "shell", zh: "貝殼；甲殼；貝殼", ipa: "[ʃɛl]", exEn: "I found an interesting shell on the beach.", exZh: "我在海灘上發現一個有趣的貝殼。" },
+      { id: 22, en: "smog", zh: "煙霧；霧霾", ipa: "[smɑɡ]", exEn: "The smog that those factories make is disgusting.", exZh: "那些工廠製造的煙霧很令人噁心。" },
+      { id: 23, en: "solar", zh: "太陽的", ipa: "[ˈsolɚ]", exEn: "I would like to use solar energy to power my house. It's good for the environment.", exZh: "我想要在家中使用太陽能，這對環境有益。" },
+      { id: 24, en: "thunderstorm", zh: "雷雨", ipa: "[ˈθʌndɚˌstɔrm]", exEn: "Everyone ran indoors when the thunderstorm started.", exZh: "開始下雷雨時，大家都跑進屋內了。" },
+      { id: 25, en: "tide", zh: "潮汐", ipa: "[taɪd]", exEn: "The tide came in and ruined my sandcastle.", exZh: "潮汐湧進來，把我的沙堡毀了。" },
+      { id: 26, en: "tornado", zh: "龍捲風", ipa: "[tɔrˈnedo]", exEn: "Harry's house was destroyed by the tornado.", exZh: "龍捲風毀了 Harry 的家。" },
+      { id: 27, en: "tropical", zh: "熱帶的", ipa: "[ˈtrɑpɪkəl]", exEn: "It often rains in tropical places.", exZh: "熱帶地區常常下雨。" },
+      { id: 28, en: "vapor", zh: "蒸汽；水汽", ipa: "[ˈvepɚ]", exEn: "As the ice melted, it produced vapor.", exZh: "冰溶化時會產生水汽。" },
+      { id: 29, en: "canyon", zh: "峽谷", ipa: "[ˈkænjən]", exEn: "The bird flew over the large canyon.", exZh: "那隻鳥兒飛越大峽谷。" },
+      { id: 30, en: "cave", zh: "洞穴", ipa: "[kev]", exEn: "You'll need a flashlight if you go into that cave. It's very dark.", exZh: "如果你要進入那個洞穴，你需要一把手電筒。那洞穴很暗。" },
+      { id: 31, en: "cliff", zh: "懸崖", ipa: "[klɪf]", exEn: "The diver jumped off the cliff and into the ocean.", exZh: "那個跳水的人從懸崖跳進海裡。" },
+      { id: 32, en: "drought", zh: "乾旱", ipa: "[draʊt]", exEn: "The farmers are worried about the drought.", exZh: "農夫們擔心乾旱。" },
+      { id: 33, en: "iceberg", zh: "冰山", ipa: "[ˈaɪsˌbɝɡ]", exEn: "The ship hit a huge iceberg and sank.", exZh: "那艘船撞到巨大冰山而沉沒了。" },
+      { id: 34, en: "landslide", zh: "山崩；塌方", ipa: "[ˈlændˌslaɪd]", exEn: "If too many trees are cut down, it can cause a landslide.", exZh: "如果砍掉太多樹，可能會造成土石流。" },
+      { id: 35, en: "mainland", zh: "大陸；本土", ipa: "[ˈmenlənd]", exEn: "We are going to take a trip to the mainland this summer.", exZh: "我們今年夏天要去大陸旅行。" },
+      { id: 36, en: "remote", zh: "遙遠的；偏僻的；遙控器", ipa: "[rɪˈmot]", exEn: "The village is very remote. The people who live there don't even have electricity.", exZh: "那座村子很偏遠，住在那裡的人連電也沒有。" },
+      { id: 37, en: "resource", zh: "資源", ipa: "[rɪˈsɔrs]", exEn: "Oil is a very important resource.", exZh: "石油是非常重要的資源。" },
+      { id: 38, en: "summit", zh: "山頂；頂峰；高峰會", ipa: "[ˈsʌmɪt]", exEn: "The climbers hiked for days to reach the summit of the mountain.", exZh: "登山者徒步旅行好幾天才到達山峰。" },
+      { id: 39, en: "aquarium", zh: "水族館；魚缸", ipa: "[əˈkwɛriəm]", exEn: "There are many types of fish in the city aquarium.", exZh: "市立水族館有許多種類的魚。" },
+      { id: 40, en: "claw", zh: "爪子；抓", ipa: "[klɔ]", exEn: "The mouse could not escape from the eagle's claws.", exZh: "那隻老鼠無法逃離鷹爪。" },
+      { id: 41, en: "creature", zh: "生物", ipa: "[ˈkritʃɚ]", exEn: "There is a legend about a creature that lives in the lake.", exZh: "有一個關於住在這湖裡生物的傳說。" },
+      { id: 42, en: "feather", zh: "羽毛", ipa: "[ˈfɛðɚ]", exEn: "This pillow is made of real feathers.", exZh: "這個枕頭是真的羽毛製成的。" },
+      { id: 43, en: "fur", zh: "毛皮", ipa: "[fɝ]", exEn: "Cats lick their fur to clean themselves.", exZh: "貓舔自己的毛來自我清理。" },
+      { id: 44, en: "herd", zh: "畜牧群；獸群；放牧", ipa: "[hɝd]", exEn: "A herd of elephants gathered around the pool of water.", exZh: "一群大象聚集在水池邊。" },
+      { id: 45, en: "hive", zh: "蜂巢", ipa: "[haɪv]", exEn: "We were taught that a hive is a nest for bees.", exZh: "我們學到蜂巢是蜜蜂的窩。" },
+      { id: 46, en: "horn", zh: "角；號角；喇叭", ipa: "[hɔrn]", exEn: "The bulls pushed each other with their horns.", exZh: "那些公牛用角互相推。" },
+      { id: 47, en: "ivory", zh: "象牙", ipa: "[ˈaɪvəri]", exEn: "Selling ivory is illegal in this country.", exZh: "販賣象牙在該國是不合法的。" },
+      { id: 48, en: "paw", zh: "爪子；抓", ipa: "[pɔ]", exEn: "My dog licks his paws all the time.", exZh: "我的狗老是在舔牠的腳掌。" },
+      { id: 49, en: "pest", zh: "害蟲；有害的動物", ipa: "[pɛst]", exEn: "Locusts are pests that eat crops.", exZh: "蝗蟲是吃農作物的害蟲。" },
+      { id: 50, en: "species", zh: "物種", ipa: "[ˈspiʃiz]", exEn: "There are two species of wolves in North America.", exZh: "北美洲的狼有兩種。" },
+      { id: 51, en: "web", zh: "蜘蛛網；網狀物", ipa: "[wɛb]", exEn: "This is the largest spider web I have ever seen.", exZh: "這是我看過最大的蜘蛛網。" }
     ];
 
     const list = document.getElementById('list');
@@ -227,6 +251,7 @@
     let showIpa = true;
     let quizType = 'zhToEn';
     let question = null;
+    let openExamples = new Set();
 
     function speakWord(text) {
       if (!('speechSynthesis' in window)) {
@@ -240,6 +265,15 @@
       window.speechSynthesis.speak(utterance);
     }
 
+    function toggleExample(id) {
+      if (openExamples.has(id)) {
+        openExamples.delete(id);
+      } else {
+        openExamples.add(id);
+      }
+      renderList();
+    }
+
     function renderList() {
       const keyword = search.value.trim();
       const key = keyword.toLowerCase();
@@ -251,17 +285,28 @@
         String(v.id).includes(keyword)
       );
 
-      countText.textContent = `共 ${filtered.length} 個單字，點卡片右側按鈕可播放發音。`;
+      countText.textContent = `共 ${filtered.length} 個單字，點「例句」可展開內容。`;
 
       list.innerHTML = filtered.map(v => `
         <div class="card">
-          <div style="min-width:0;">
-            <div class="num">${String(v.id).padStart(2,'0')}</div>
-            <div class="en">${v.en}</div>
-            ${showIpa ? `<div class="ipa">${v.ipa}</div>` : ``}
-            ${showZh ? `<div class="zh">${v.zh}</div>` : ``}
+          <div class="card-top">
+            <div style="min-width:0;">
+              <div class="num">${String(v.id).padStart(2,'0')}</div>
+              <div class="en">${v.en}</div>
+              ${showIpa ? `<div class="ipa">${v.ipa}</div>` : ``}
+              ${showZh ? `<div class="zh">${v.zh}</div>` : ``}
+            </div>
+            <div class="rightbtns">
+              <button class="play" onclick="speakWord('${v.en.replace(/'/g, "\\'")}')">播放</button>
+              <button class="examplebtn" onclick="toggleExample(${v.id})">${openExamples.has(v.id) ? '收起' : '例句'}</button>
+            </div>
           </div>
-          <button class="play" onclick="speakWord('${v.en.replace(/'/g, "\\'")}')">播放</button>
+          ${openExamples.has(v.id) ? `
+            <div class="examplebox">
+              <div class="example-en">${v.exEn}</div>
+              <div class="example-zh">${v.exZh}</div>
+            </div>
+          ` : ``}
         </div>
       `).join('');
     }
@@ -318,6 +363,7 @@
 
     window.speakWord = speakWord;
     window.checkAnswer = checkAnswer;
+    window.toggleExample = toggleExample;
 
     tabVocab.onclick = () => {
       tabVocab.classList.add('active');
