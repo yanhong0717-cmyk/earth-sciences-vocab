@@ -6,17 +6,20 @@
   <title>Earth Sciences Vocabulary - Chapter 14</title>
   <style>
     * { box-sizing: border-box; }
+
     body {
       margin: 0;
       font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Noto Sans TC", sans-serif;
       background: #f1f5f9;
       color: #0f172a;
     }
+
     .wrap {
       max-width: 430px;
       margin: 0 auto;
       padding: 16px;
     }
+
     .app {
       background: #fff;
       border: 1px solid #e2e8f0;
@@ -24,18 +27,53 @@
       overflow: hidden;
       box-shadow: 0 20px 50px rgba(15, 23, 42, 0.12);
     }
+
     .header {
       padding: 22px 20px 16px;
       background: #f8fafc;
       border-bottom: 1px solid #e2e8f0;
     }
-    .sub { font-size: 13px; color: #64748b; }
-    .title { font-size: 28px; font-weight: 800; margin-top: 4px; }
-    .desc { font-size: 14px; color: #64748b; margin-top: 4px; }
-    .content { padding: 16px; }
-    .tabs, .row2 { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
-    button, input { font: inherit; }
-    .tab, .toggle, .play, .option, .nextbtn, .examplebtn {
+
+    .sub {
+      font-size: 13px;
+      color: #64748b;
+    }
+
+    .title {
+      font-size: 28px;
+      font-weight: 800;
+      margin-top: 4px;
+    }
+
+    .desc {
+      font-size: 14px;
+      color: #64748b;
+      margin-top: 4px;
+    }
+
+    .content {
+      padding: 16px;
+    }
+
+    .tabs,
+    .row2 {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 8px;
+    }
+
+    button,
+    input {
+      font: inherit;
+    }
+
+    .tab,
+    .toggle,
+    .play,
+    .option,
+    .nextbtn,
+    .examplebtn,
+    .sentencebtn {
       border: 1px solid #e2e8f0;
       border-radius: 16px;
       background: #fff;
@@ -43,11 +81,15 @@
       padding: 12px 14px;
       cursor: pointer;
     }
-    .tab.active, .nextbtn, .toggle.active {
+
+    .tab.active,
+    .nextbtn,
+    .toggle.active {
       background: #0f172a;
       color: #fff;
       border-color: #0f172a;
     }
+
     .search {
       width: 100%;
       border: 1px solid #cbd5e1;
@@ -57,11 +99,18 @@
       outline: none;
       background: #fff;
     }
+
     .search:focus {
       border-color: #94a3b8;
-      box-shadow: 0 0 0 3px rgba(148,163,184,.2);
+      box-shadow: 0 0 0 3px rgba(148, 163, 184, 0.2);
     }
-    .muted { color: #64748b; font-size: 12px; margin: 10px 2px 0; }
+
+    .muted {
+      color: #64748b;
+      font-size: 12px;
+      margin: 10px 2px 0;
+    }
+
     .list {
       margin-top: 12px;
       display: flex;
@@ -71,45 +120,101 @@
       overflow: auto;
       padding-right: 2px;
     }
+
     .card {
       border: 1px solid #e2e8f0;
       border-radius: 18px;
       padding: 14px;
       background: #fff;
     }
+
     .card-top {
       display: flex;
       justify-content: space-between;
       gap: 12px;
-      align-items: center;
+      align-items: flex-start;
     }
-    .num { font-size: 12px; color: #94a3b8; margin-bottom: 4px; }
-    .en { font-size: 22px; font-weight: 700; }
-    .ipa { font-size: 14px; color: #64748b; margin-top: 2px; }
-    .zh { font-size: 14px; color: #334155; margin-top: 5px; }
+
+    .word-info {
+      min-width: 0;
+      flex: 1;
+    }
+
+    .num {
+      font-size: 12px;
+      color: #94a3b8;
+      margin-bottom: 4px;
+    }
+
+    .en {
+      font-size: 22px;
+      font-weight: 700;
+      line-height: 1.2;
+      word-break: break-word;
+    }
+
+    .ipa {
+      font-size: 14px;
+      color: #64748b;
+      margin-top: 4px;
+      word-break: break-word;
+    }
+
+    .zh {
+      font-size: 14px;
+      color: #334155;
+      margin-top: 6px;
+      line-height: 1.5;
+    }
+
     .rightbtns {
       display: flex;
       flex-direction: column;
       gap: 8px;
       flex-shrink: 0;
+      width: 84px;
     }
-    .play, .examplebtn { white-space: nowrap; padding: 10px 12px; }
+
+    .play,
+    .examplebtn,
+    .sentencebtn {
+      white-space: nowrap;
+      padding: 10px 8px;
+      font-size: 13px;
+      text-align: center;
+    }
+
     .examplebox {
       margin-top: 12px;
       border-top: 1px solid #e2e8f0;
       padding-top: 12px;
     }
+
+    .example-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 10px;
+    }
+
+    .example-content {
+      flex: 1;
+      min-width: 0;
+    }
+
     .example-en {
       font-size: 14px;
-      line-height: 1.6;
+      line-height: 1.7;
       color: #0f172a;
     }
+
     .example-zh {
       font-size: 13px;
-      line-height: 1.6;
+      line-height: 1.7;
       color: #64748b;
       margin-top: 6px;
     }
+
     .panel {
       margin-top: 12px;
       border: 1px solid #e2e8f0;
@@ -117,10 +222,31 @@
       background: #f8fafc;
       padding: 14px;
     }
-    .panel-title { font-size: 13px; color: #64748b; margin-bottom: 6px; }
-    .question { font-size: 18px; font-weight: 700; margin-bottom: 12px; }
-    .options { display: flex; flex-direction: column; gap: 8px; }
-    .option { text-align: left; background: #fff; }
+
+    .panel-title {
+      font-size: 13px;
+      color: #64748b;
+      margin-bottom: 6px;
+    }
+
+    .question {
+      font-size: 18px;
+      font-weight: 700;
+      margin-bottom: 12px;
+      line-height: 1.5;
+    }
+
+    .options {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .option {
+      text-align: left;
+      background: #fff;
+    }
+
     .result {
       margin-top: 10px;
       border: 1px solid #e2e8f0;
@@ -128,8 +254,29 @@
       padding: 12px 14px;
       background: #fff;
       font-size: 14px;
+      line-height: 1.6;
     }
-    .hidden { display: none; }
+
+    .hidden {
+      display: none;
+    }
+
+    @media (max-width: 380px) {
+      .rightbtns {
+        width: 78px;
+      }
+
+      .en {
+        font-size: 20px;
+      }
+
+      .play,
+      .examplebtn,
+      .sentencebtn {
+        font-size: 12px;
+        padding: 9px 6px;
+      }
+    }
   </style>
 </head>
 <body>
@@ -138,7 +285,7 @@
       <div class="header">
         <div class="sub">Earth Sciences Vocabulary</div>
         <div class="title">Chapter 14</div>
-        <div class="desc">手機版單字發音＋測驗＋點開例句</div>
+        <div class="desc">手機版單字發音＋例句＋測驗</div>
       </div>
 
       <div class="content">
@@ -231,37 +378,38 @@
       { id: 51, en: "web", zh: "蜘蛛網；網狀物", ipa: "[wɛb]", exEn: "This is the largest spider web I have ever seen.", exZh: "這是我看過最大的蜘蛛網。" }
     ];
 
-    const list = document.getElementById('list');
-    const search = document.getElementById('search');
-    const countText = document.getElementById('countText');
-    const vocabView = document.getElementById('vocabView');
-    const quizView = document.getElementById('quizView');
-    const tabVocab = document.getElementById('tabVocab');
-    const tabQuiz = document.getElementById('tabQuiz');
-    const toggleZh = document.getElementById('toggleZh');
-    const toggleIpa = document.getElementById('toggleIpa');
-    const modeZhToEn = document.getElementById('modeZhToEn');
-    const modeEnToZh = document.getElementById('modeEnToZh');
-    const questionText = document.getElementById('questionText');
-    const optionsEl = document.getElementById('options');
-    const resultEl = document.getElementById('result');
-    const nextBtn = document.getElementById('nextBtn');
+    const list = document.getElementById("list");
+    const search = document.getElementById("search");
+    const countText = document.getElementById("countText");
+    const vocabView = document.getElementById("vocabView");
+    const quizView = document.getElementById("quizView");
+    const tabVocab = document.getElementById("tabVocab");
+    const tabQuiz = document.getElementById("tabQuiz");
+    const toggleZh = document.getElementById("toggleZh");
+    const toggleIpa = document.getElementById("toggleIpa");
+    const modeZhToEn = document.getElementById("modeZhToEn");
+    const modeEnToZh = document.getElementById("modeEnToZh");
+    const questionText = document.getElementById("questionText");
+    const optionsEl = document.getElementById("options");
+    const resultEl = document.getElementById("result");
+    const nextBtn = document.getElementById("nextBtn");
 
     let showZh = true;
     let showIpa = true;
-    let quizType = 'zhToEn';
+    let quizType = "zhToEn";
     let question = null;
     let openExamples = new Set();
 
-    function speakWord(text) {
-      if (!('speechSynthesis' in window)) {
-        alert('這個瀏覽器暫時不支援語音播放');
+    function speakText(text, rate = 0.9) {
+      if (!("speechSynthesis" in window)) {
+        alert("這個瀏覽器暫時不支援語音播放");
         return;
       }
+
       window.speechSynthesis.cancel();
       const utterance = new SpeechSynthesisUtterance(text);
-      utterance.lang = 'en-US';
-      utterance.rate = 0.9;
+      utterance.lang = "en-US";
+      utterance.rate = rate;
       window.speechSynthesis.speak(utterance);
     }
 
@@ -290,25 +438,32 @@
       list.innerHTML = filtered.map(v => `
         <div class="card">
           <div class="card-top">
-            <div style="min-width:0;">
-              <div class="num">${String(v.id).padStart(2,'0')}</div>
+            <div class="word-info">
+              <div class="num">${String(v.id).padStart(2, "0")}</div>
               <div class="en">${v.en}</div>
               ${showIpa ? `<div class="ipa">${v.ipa}</div>` : ``}
               ${showZh ? `<div class="zh">${v.zh}</div>` : ``}
             </div>
+
             <div class="rightbtns">
-              <button class="play" onclick="speakWord('${v.en.replace(/'/g, "\\'")}')">播放</button>
-              <button class="examplebtn" onclick="toggleExample(${v.id})">${openExamples.has(v.id) ? '收起' : '例句'}</button>
+              <button class="play" onclick="speakText(${JSON.stringify(v.en)}, 0.9)">播放</button>
+              <button class="examplebtn" onclick="toggleExample(${v.id})">${openExamples.has(v.id) ? "收起" : "例句"}</button>
             </div>
           </div>
+
           ${openExamples.has(v.id) ? `
             <div class="examplebox">
-              <div class="example-en">${v.exEn}</div>
-              <div class="example-zh">${v.exZh}</div>
+              <div class="example-head">
+                <div class="example-content">
+                  <div class="example-en">${v.exEn}</div>
+                  <div class="example-zh">${v.exZh}</div>
+                </div>
+                <button class="sentencebtn" onclick="speakText(${JSON.stringify(v.exEn)}, 0.8)">念例句</button>
+              </div>
             </div>
           ` : ``}
         </div>
-      `).join('');
+      `).join("");
     }
 
     function shuffle(arr) {
@@ -323,86 +478,89 @@
     function makeQuestion() {
       const answer = VOCAB[Math.floor(Math.random() * VOCAB.length)];
       const others = shuffle(VOCAB.filter(v => v.id !== answer.id)).slice(0, 3);
-      question = { answer, options: shuffle([answer, ...others]) };
+      question = {
+        answer,
+        options: shuffle([answer, ...others])
+      };
       renderQuestion();
     }
 
     function renderQuestion() {
-      resultEl.classList.add('hidden');
-      resultEl.textContent = '';
+      resultEl.classList.add("hidden");
+      resultEl.textContent = "";
 
-      if (quizType === 'zhToEn') {
+      if (quizType === "zhToEn") {
         questionText.textContent = `「${question.answer.zh}」的英文是？`;
       } else {
         questionText.innerHTML = `
           <div style="display:flex;justify-content:space-between;align-items:center;gap:8px;">
             <span>${question.answer.en}</span>
-            <button class="play" onclick="speakWord('${question.answer.en.replace(/'/g, "\\'")}')">播放</button>
+            <button class="play" onclick="speakText(${JSON.stringify(question.answer.en)}, 0.9)">播放</button>
           </div>
         `;
       }
 
       optionsEl.innerHTML = question.options.map(opt => `
         <button class="option" onclick="checkAnswer(${opt.id})">
-          ${quizType === 'zhToEn' ? opt.en : opt.zh}
+          ${quizType === "zhToEn" ? opt.en : opt.zh}
         </button>
-      `).join('');
+      `).join("");
     }
 
     function checkAnswer(id) {
       const selected = question.options.find(o => o.id === id);
-      resultEl.classList.remove('hidden');
+      resultEl.classList.remove("hidden");
 
       if (selected.id === question.answer.id) {
         resultEl.textContent = `答對了：${question.answer.en}`;
-        speakWord(question.answer.en);
+        speakText(question.answer.en, 0.9);
       } else {
         resultEl.textContent = `答錯了，正確答案是 ${question.answer.en}`;
       }
     }
 
-    window.speakWord = speakWord;
+    window.speakText = speakText;
     window.checkAnswer = checkAnswer;
     window.toggleExample = toggleExample;
 
     tabVocab.onclick = () => {
-      tabVocab.classList.add('active');
-      tabQuiz.classList.remove('active');
-      vocabView.classList.remove('hidden');
-      quizView.classList.add('hidden');
+      tabVocab.classList.add("active");
+      tabQuiz.classList.remove("active");
+      vocabView.classList.remove("hidden");
+      quizView.classList.add("hidden");
     };
 
     tabQuiz.onclick = () => {
-      tabQuiz.classList.add('active');
-      tabVocab.classList.remove('active');
-      quizView.classList.remove('hidden');
-      vocabView.classList.add('hidden');
+      tabQuiz.classList.add("active");
+      tabVocab.classList.remove("active");
+      quizView.classList.remove("hidden");
+      vocabView.classList.add("hidden");
       if (!question) makeQuestion();
     };
 
     toggleZh.onclick = () => {
       showZh = !showZh;
-      toggleZh.textContent = `中文：${showZh ? '顯示' : '隱藏'}`;
+      toggleZh.textContent = `中文：${showZh ? "顯示" : "隱藏"}`;
       renderList();
     };
 
     toggleIpa.onclick = () => {
       showIpa = !showIpa;
-      toggleIpa.textContent = `音標：${showIpa ? '顯示' : '隱藏'}`;
+      toggleIpa.textContent = `音標：${showIpa ? "顯示" : "隱藏"}`;
       renderList();
     };
 
     modeZhToEn.onclick = () => {
-      quizType = 'zhToEn';
-      modeZhToEn.classList.add('active');
-      modeEnToZh.classList.remove('active');
+      quizType = "zhToEn";
+      modeZhToEn.classList.add("active");
+      modeEnToZh.classList.remove("active");
       makeQuestion();
     };
 
     modeEnToZh.onclick = () => {
-      quizType = 'enToZh';
-      modeEnToZh.classList.add('active');
-      modeZhToEn.classList.remove('active');
+      quizType = "enToZh";
+      modeEnToZh.classList.add("active");
+      modeZhToEn.classList.remove("active");
       makeQuestion();
     };
 
