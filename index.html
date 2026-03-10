@@ -1,1 +1,567 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Earth Sciences Vocabulary - Chapter 14</title>
+  <style>
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Noto Sans TC", sans-serif;
+      background: #f1f5f9;
+      color: #0f172a;
+    }
+
+    .wrap {
+      max-width: 430px;
+      margin: 0 auto;
+      padding: 16px;
+    }
+
+    .app {
+      background: #fff;
+      border: 1px solid #e2e8f0;
+      border-radius: 28px;
+      overflow: hidden;
+      box-shadow: 0 20px 50px rgba(15, 23, 42, 0.12);
+    }
+
+    .header {
+      padding: 22px 20px 16px;
+      background: #f8fafc;
+      border-bottom: 1px solid #e2e8f0;
+    }
+
+    .sub {
+      font-size: 13px;
+      color: #64748b;
+    }
+
+    .title {
+      font-size: 28px;
+      font-weight: 800;
+      margin-top: 4px;
+    }
+
+    .desc {
+      font-size: 14px;
+      color: #64748b;
+      margin-top: 4px;
+    }
+
+    .content {
+      padding: 16px;
+    }
+
+    .tabs, .row2 {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 8px;
+    }
+
+    button, input {
+      font: inherit;
+    }
+
+    .tab,
+    .toggle,
+    .play,
+    .option,
+    .nextbtn,
+    .examplebtn,
+    .audiobtn {
+      border: 1px solid #e2e8f0;
+      border-radius: 16px;
+      background: #fff;
+      color: #334155;
+      padding: 12px 14px;
+      cursor: pointer;
+    }
+
+    .tab.active,
+    .nextbtn,
+    .toggle.active {
+      background: #0f172a;
+      color: #fff;
+      border-color: #0f172a;
+    }
+
+    .search {
+      width: 100%;
+      border: 1px solid #cbd5e1;
+      border-radius: 16px;
+      padding: 13px 14px;
+      margin-top: 12px;
+      outline: none;
+      background: #fff;
+    }
+
+    .search:focus {
+      border-color: #94a3b8;
+      box-shadow: 0 0 0 3px rgba(148,163,184,.2);
+    }
+
+    .muted {
+      color: #64748b;
+      font-size: 12px;
+      margin: 10px 2px 0;
+      line-height: 1.6;
+    }
+
+    .list {
+      margin-top: 12px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      max-height: 62vh;
+      overflow: auto;
+      padding-right: 2px;
+    }
+
+    .card {
+      border: 1px solid #e2e8f0;
+      border-radius: 18px;
+      padding: 14px;
+      background: #fff;
+    }
+
+    .card-top {
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+      align-items: flex-start;
+    }
+
+    .word-info {
+      min-width: 0;
+      flex: 1;
+    }
+
+    .num {
+      font-size: 12px;
+      color: #94a3b8;
+      margin-bottom: 4px;
+    }
+
+    .en {
+      font-size: 22px;
+      font-weight: 700;
+      line-height: 1.2;
+      word-break: break-word;
+    }
+
+    .ipa {
+      font-size: 14px;
+      color: #64748b;
+      margin-top: 4px;
+      word-break: break-word;
+    }
+
+    .zh {
+      font-size: 14px;
+      color: #334155;
+      margin-top: 6px;
+      line-height: 1.5;
+    }
+
+    .rightbtns {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      flex-shrink: 0;
+      width: 84px;
+    }
+
+    .play,
+    .examplebtn,
+    .audiobtn {
+      white-space: nowrap;
+      padding: 10px 8px;
+      font-size: 13px;
+      text-align: center;
+    }
+
+    .examplebox {
+      margin-top: 12px;
+      border-top: 1px solid #e2e8f0;
+      padding-top: 12px;
+    }
+
+    .audio-row {
+      display: flex;
+      gap: 8px;
+      margin-bottom: 10px;
+    }
+
+    .audio-row .audiobtn {
+      flex: 1;
+      padding: 10px 8px;
+    }
+
+    .example-en {
+      font-size: 14px;
+      line-height: 1.7;
+      color: #0f172a;
+    }
+
+    .example-zh {
+      font-size: 13px;
+      line-height: 1.7;
+      color: #64748b;
+      margin-top: 6px;
+    }
+
+    .panel {
+      margin-top: 12px;
+      border: 1px solid #e2e8f0;
+      border-radius: 18px;
+      background: #f8fafc;
+      padding: 14px;
+    }
+
+    .panel-title {
+      font-size: 13px;
+      color: #64748b;
+      margin-bottom: 6px;
+    }
+
+    .question {
+      font-size: 18px;
+      font-weight: 700;
+      margin-bottom: 12px;
+      line-height: 1.5;
+    }
+
+    .options {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .option {
+      text-align: left;
+      background: #fff;
+    }
+
+    .result {
+      margin-top: 10px;
+      border: 1px solid #e2e8f0;
+      border-radius: 16px;
+      padding: 12px 14px;
+      background: #fff;
+      font-size: 14px;
+      line-height: 1.6;
+    }
+
+    .hidden {
+      display: none;
+    }
+
+    @media (max-width: 380px) {
+      .rightbtns {
+        width: 78px;
+      }
+
+      .en {
+        font-size: 20px;
+      }
+
+      .play,
+      .examplebtn,
+      .audiobtn {
+        font-size: 12px;
+        padding: 9px 6px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <div class="app">
+      <div class="header">
+        <div class="sub">Earth Sciences Vocabulary</div>
+        <div class="title">Chapter 14</div>
+        <div class="desc">單字音檔＋例句音檔＋測驗</div>
+      </div>
+
+      <div class="content">
+        <div class="tabs">
+          <button class="tab active" id="tabVocab">單字</button>
+          <button class="tab" id="tabQuiz">測驗</button>
+        </div>
+
+        <div id="vocabView">
+          <input id="search" class="search" placeholder="搜尋英文、中文或編號" />
+          <div class="row2" style="margin-top: 8px;">
+            <button class="toggle" id="toggleZh">中文：顯示</button>
+            <button class="toggle" id="toggleIpa">音標：顯示</button>
+          </div>
+          <div class="muted" id="countText"></div>
+          <div class="list" id="list"></div>
+        </div>
+
+        <div id="quizView" class="hidden">
+          <div class="row2" style="margin-top: 12px;">
+            <button class="toggle active" id="modeZhToEn">中文選英文</button>
+            <button class="toggle" id="modeEnToZh">英文選中文</button>
+          </div>
+
+          <div class="panel">
+            <div class="panel-title">練習模式</div>
+            <div class="question" id="questionText"></div>
+            <div class="options" id="options"></div>
+          </div>
+
+          <button class="nextbtn" id="nextBtn" style="width: 100%; margin-top: 10px;">下一題</button>
+          <div class="result hidden" id="result"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const VOCAB = [
+      { id: 1, en: "bamboo", zh: "竹子", ipa: "[bæmˈbu]", exEn: "Pandas mostly eat bamboo.", exZh: "熊貓主要吃竹子。", wordAudio: "audio/1-word.mp3", sentenceAudio: "audio/1-sentence.mp3" },
+      { id: 2, en: "blossom", zh: "開花；花", ipa: "[ˈblɑsəm]", exEn: "The cherry trees blossom every spring.", exZh: "櫻桃樹每年春天會開花。", wordAudio: "audio/2-word.mp3", sentenceAudio: "audio/2-sentence.mp3" },
+      { id: 3, en: "bud", zh: "花蕾；芽；發芽", ipa: "[bʌd]", exEn: "The flower bud slowly began to open.", exZh: "花蕾慢慢開始綻放。", wordAudio: "audio/3-word.mp3", sentenceAudio: "audio/3-sentence.mp3" },
+      { id: 4, en: "bush", zh: "灌木叢", ipa: "[bʊʃ]", exEn: "The children were all hiding in the bush.", exZh: "孩子們全都躲在灌木叢裡。", wordAudio: "audio/4-word.mp3", sentenceAudio: "audio/4-sentence.mp3" },
+      { id: 5, en: "coal", zh: "煤", ipa: "[kol]", exEn: "The man shoveled coal into the train.", exZh: "男子把煤鏟入火車。", wordAudio: "audio/5-word.mp3", sentenceAudio: "audio/5-sentence.mp3" },
+      { id: 6, en: "crystal", zh: "水晶", ipa: "[ˈkrɪstl]", exEn: "These are expensive wine glasses. They are made out of crystal.", exZh: "這些酒杯很昂貴，它們是用水晶製成。", wordAudio: "audio/6-word.mp3", sentenceAudio: "audio/6-sentence.mp3" },
+      { id: 7, en: "disaster", zh: "災害；不幸", ipa: "[dɪˈzæstɚ]", exEn: "There was a terrible disaster and many people were injured.", exZh: "有一場嚴重的災害，許多人受傷了。", wordAudio: "audio/7-word.mp3", sentenceAudio: "audio/7-sentence.mp3" },
+      { id: 8, en: "earthquake", zh: "地震", ipa: "[ˈɝθˌkwek]", exEn: "If there is an earthquake, you shouldn't use the elevator.", exZh: "如果有地震，你不應該使用電梯。", wordAudio: "audio/8-word.mp3", sentenceAudio: "audio/8-sentence.mp3" },
+      { id: 9, en: "frozen", zh: "冰凍的；凍僵的", ipa: "[ˈfrozn]", exEn: "You can walk on the lake now. It's totally frozen.", exZh: "你現在可以在湖上行走，它整個結冰了。", wordAudio: "audio/9-word.mp3", sentenceAudio: "audio/9-sentence.mp3" },
+      { id: 10, en: "hurricane", zh: "颶風", ipa: "[ˈhɝɪˌken]", exEn: "The hurricane destroyed most of the village.", exZh: "颶風摧毀了村子大部分的地區。", wordAudio: "audio/10-word.mp3", sentenceAudio: "audio/10-sentence.mp3" },
+      { id: 11, en: "mist", zh: "霧；水汽", ipa: "[mɪst]", exEn: "I can't see anything. There is too much mist in the air.", exZh: "我什麼都看不見，霧太濃了。", wordAudio: "audio/11-word.mp3", sentenceAudio: "audio/11-sentence.mp3" },
+      { id: 12, en: "moonlight", zh: "月光", ipa: "[ˈmunˌlaɪt]", exEn: "The moonlight shone upon the lake. It was a beautiful scene.", exZh: "月光照耀在湖面上，這真是美麗的景色。", wordAudio: "audio/12-word.mp3", sentenceAudio: "audio/12-sentence.mp3" },
+      { id: 13, en: "muddy", zh: "泥濘的；混濁的", ipa: "[ˈmʌdi]", exEn: "Take off your muddy shoes before you come inside.", exZh: "進屋前把你沾滿泥土的鞋子脫掉。", wordAudio: "audio/13-word.mp3", sentenceAudio: "audio/13-sentence.mp3" },
+      { id: 14, en: "oak", zh: "橡木樹；橡木", ipa: "[ok]", exEn: "This coffee table is made out of oak.", exZh: "這張咖啡桌是用橡木製成。", wordAudio: "audio/14-word.mp3", sentenceAudio: "audio/14-sentence.mp3" },
+      { id: 15, en: "oxygen", zh: "氧氣", ipa: "[ˈɑksɪdʒən]", exEn: "The diver had to come back to the surface because he ran out of oxygen.", exZh: "那位潛水員必須回到水面，因為他的氧氣用完了。", wordAudio: "audio/15-word.mp3", sentenceAudio: "audio/15-sentence.mp3" },
+      { id: 16, en: "rainfall", zh: "降雨；降雨量", ipa: "[ˈrenˌfɔl]", exEn: "Last year, we got much more rainfall.", exZh: "我們去年的降雨量多出許多。", wordAudio: "audio/16-word.mp3", sentenceAudio: "audio/16-sentence.mp3" },
+      { id: 17, en: "ray", zh: "光線", ipa: "[re]", exEn: "The sun's rays beat down upon the hikers.", exZh: "太陽光直射在登山者身上。", wordAudio: "audio/17-word.mp3", sentenceAudio: "audio/17-sentence.mp3" },
+      { id: 18, en: "rotten", zh: "腐爛的", ipa: "[ˈrɑtn]", exEn: "You shouldn't eat this apple. It's totally rotten.", exZh: "你不該吃這顆蘋果，它整個腐爛了。", wordAudio: "audio/18-word.mp3", sentenceAudio: "audio/18-sentence.mp3" },
+      { id: 19, en: "scenery", zh: "風景", ipa: "[ˈsinəri]", exEn: "Let's stop here and look at the beautiful scenery.", exZh: "我們在這停下來，看看美麗的風景吧。", wordAudio: "audio/19-word.mp3", sentenceAudio: "audio/19-sentence.mp3" },
+      { id: 20, en: "shade", zh: "陰涼處；遮蔽", ipa: "[ʃed]", exEn: "Cindy sat under the shade of a large tree.", exZh: "Cindy 坐在大樹的陰影下。", wordAudio: "audio/20-word.mp3", sentenceAudio: "audio/20-sentence.mp3" },
+      { id: 21, en: "shell", zh: "貝殼；甲殼；貝殼", ipa: "[ʃɛl]", exEn: "I found an interesting shell on the beach.", exZh: "我在海灘上發現一個有趣的貝殼。", wordAudio: "audio/21-word.mp3", sentenceAudio: "audio/21-sentence.mp3" },
+      { id: 22, en: "smog", zh: "煙霧；霧霾", ipa: "[smɑɡ]", exEn: "The smog that those factories make is disgusting.", exZh: "那些工廠製造的煙霧很令人噁心。", wordAudio: "audio/22-word.mp3", sentenceAudio: "audio/22-sentence.mp3" },
+      { id: 23, en: "solar", zh: "太陽的", ipa: "[ˈsolɚ]", exEn: "I would like to use solar energy to power my house. It's good for the environment.", exZh: "我想要在家中使用太陽能，這對環境有益。", wordAudio: "audio/23-word.mp3", sentenceAudio: "audio/23-sentence.mp3" },
+      { id: 24, en: "thunderstorm", zh: "雷雨", ipa: "[ˈθʌndɚˌstɔrm]", exEn: "Everyone ran indoors when the thunderstorm started.", exZh: "開始下雷雨時，大家都跑進屋內了。", wordAudio: "audio/24-word.mp3", sentenceAudio: "audio/24-sentence.mp3" },
+      { id: 25, en: "tide", zh: "潮汐", ipa: "[taɪd]", exEn: "The tide came in and ruined my sandcastle.", exZh: "潮汐湧進來，把我的沙堡毀了。", wordAudio: "audio/25-word.mp3", sentenceAudio: "audio/25-sentence.mp3" },
+      { id: 26, en: "tornado", zh: "龍捲風", ipa: "[tɔrˈnedo]", exEn: "Harry's house was destroyed by the tornado.", exZh: "龍捲風毀了 Harry 的家。", wordAudio: "audio/26-word.mp3", sentenceAudio: "audio/26-sentence.mp3" },
+      { id: 27, en: "tropical", zh: "熱帶的", ipa: "[ˈtrɑpɪkəl]", exEn: "It often rains in tropical places.", exZh: "熱帶地區常常下雨。", wordAudio: "audio/27-word.mp3", sentenceAudio: "audio/27-sentence.mp3" },
+      { id: 28, en: "vapor", zh: "蒸汽；水汽", ipa: "[ˈvepɚ]", exEn: "As the ice melted, it produced vapor.", exZh: "冰溶化時會產生水汽。", wordAudio: "audio/28-word.mp3", sentenceAudio: "audio/28-sentence.mp3" },
+      { id: 29, en: "canyon", zh: "峽谷", ipa: "[ˈkænjən]", exEn: "The bird flew over the large canyon.", exZh: "那隻鳥兒飛越大峽谷。", wordAudio: "audio/29-word.mp3", sentenceAudio: "audio/29-sentence.mp3" },
+      { id: 30, en: "cave", zh: "洞穴", ipa: "[kev]", exEn: "You'll need a flashlight if you go into that cave. It's very dark.", exZh: "如果你要進入那個洞穴，你需要一把手電筒。那洞穴很暗。", wordAudio: "audio/30-word.mp3", sentenceAudio: "audio/30-sentence.mp3" },
+      { id: 31, en: "cliff", zh: "懸崖", ipa: "[klɪf]", exEn: "The diver jumped off the cliff and into the ocean.", exZh: "那個跳水的人從懸崖跳進海裡。", wordAudio: "audio/31-word.mp3", sentenceAudio: "audio/31-sentence.mp3" },
+      { id: 32, en: "drought", zh: "乾旱", ipa: "[draʊt]", exEn: "The farmers are worried about the drought.", exZh: "農夫們擔心乾旱。", wordAudio: "audio/32-word.mp3", sentenceAudio: "audio/32-sentence.mp3" },
+      { id: 33, en: "iceberg", zh: "冰山", ipa: "[ˈaɪsˌbɝɡ]", exEn: "The ship hit a huge iceberg and sank.", exZh: "那艘船撞到巨大冰山而沉沒了。", wordAudio: "audio/33-word.mp3", sentenceAudio: "audio/33-sentence.mp3" },
+      { id: 34, en: "landslide", zh: "山崩；塌方", ipa: "[ˈlændˌslaɪd]", exEn: "If too many trees are cut down, it can cause a landslide.", exZh: "如果砍掉太多樹，可能會造成土石流。", wordAudio: "audio/34-word.mp3", sentenceAudio: "audio/34-sentence.mp3" },
+      { id: 35, en: "mainland", zh: "大陸；本土", ipa: "[ˈmenlənd]", exEn: "We are going to take a trip to the mainland this summer.", exZh: "我們今年夏天要去大陸旅行。", wordAudio: "audio/35-word.mp3", sentenceAudio: "audio/35-sentence.mp3" },
+      { id: 36, en: "remote", zh: "遙遠的；偏僻的；遙控器", ipa: "[rɪˈmot]", exEn: "The village is very remote. The people who live there don't even have electricity.", exZh: "那座村子很偏遠，住在那裡的人連電也沒有。", wordAudio: "audio/36-word.mp3", sentenceAudio: "audio/36-sentence.mp3" },
+      { id: 37, en: "resource", zh: "資源", ipa: "[rɪˈsɔrs]", exEn: "Oil is a very important resource.", exZh: "石油是非常重要的資源。", wordAudio: "audio/37-word.mp3", sentenceAudio: "audio/37-sentence.mp3" },
+      { id: 38, en: "summit", zh: "山頂；頂峰；高峰會", ipa: "[ˈsʌmɪt]", exEn: "The climbers hiked for days to reach the summit of the mountain.", exZh: "登山者徒步旅行好幾天才到達山峰。", wordAudio: "audio/38-word.mp3", sentenceAudio: "audio/38-sentence.mp3" },
+      { id: 39, en: "aquarium", zh: "水族館；魚缸", ipa: "[əˈkwɛriəm]", exEn: "There are many types of fish in the city aquarium.", exZh: "市立水族館有許多種類的魚。", wordAudio: "audio/39-word.mp3", sentenceAudio: "audio/39-sentence.mp3" },
+      { id: 40, en: "claw", zh: "爪子；抓", ipa: "[klɔ]", exEn: "The mouse could not escape from the eagle's claws.", exZh: "那隻老鼠無法逃離鷹爪。", wordAudio: "audio/40-word.mp3", sentenceAudio: "audio/40-sentence.mp3" },
+      { id: 41, en: "creature", zh: "生物", ipa: "[ˈkritʃɚ]", exEn: "There is a legend about a creature that lives in the lake.", exZh: "有一個關於住在這湖裡生物的傳說。", wordAudio: "audio/41-word.mp3", sentenceAudio: "audio/41-sentence.mp3" },
+      { id: 42, en: "feather", zh: "羽毛", ipa: "[ˈfɛðɚ]", exEn: "This pillow is made of real feathers.", exZh: "這個枕頭是真的羽毛製成的。", wordAudio: "audio/42-word.mp3", sentenceAudio: "audio/42-sentence.mp3" },
+      { id: 43, en: "fur", zh: "毛皮", ipa: "[fɝ]", exEn: "Cats lick their fur to clean themselves.", exZh: "貓舔自己的毛來自我清理。", wordAudio: "audio/43-word.mp3", sentenceAudio: "audio/43-sentence.mp3" },
+      { id: 44, en: "herd", zh: "畜牧群；獸群；放牧", ipa: "[hɝd]", exEn: "A herd of elephants gathered around the pool of water.", exZh: "一群大象聚集在水池邊。", wordAudio: "audio/44-word.mp3", sentenceAudio: "audio/44-sentence.mp3" },
+      { id: 45, en: "hive", zh: "蜂巢", ipa: "[haɪv]", exEn: "We were taught that a hive is a nest for bees.", exZh: "我們學到蜂巢是蜜蜂的窩。", wordAudio: "audio/45-word.mp3", sentenceAudio: "audio/45-sentence.mp3" },
+      { id: 46, en: "horn", zh: "角；號角；喇叭", ipa: "[hɔrn]", exEn: "The bulls pushed each other with their horns.", exZh: "那些公牛用角互相推。", wordAudio: "audio/46-word.mp3", sentenceAudio: "audio/46-sentence.mp3" },
+      { id: 47, en: "ivory", zh: "象牙", ipa: "[ˈaɪvəri]", exEn: "Selling ivory is illegal in this country.", exZh: "販賣象牙在該國是不合法的。", wordAudio: "audio/47-word.mp3", sentenceAudio: "audio/47-sentence.mp3" },
+      { id: 48, en: "paw", zh: "爪子；抓", ipa: "[pɔ]", exEn: "My dog licks his paws all the time.", exZh: "我的狗老是在舔牠的腳掌。", wordAudio: "audio/48-word.mp3", sentenceAudio: "audio/48-sentence.mp3" },
+      { id: 49, en: "pest", zh: "害蟲；有害的動物", ipa: "[pɛst]", exEn: "Locusts are pests that eat crops.", exZh: "蝗蟲是吃農作物的害蟲。", wordAudio: "audio/49-word.mp3", sentenceAudio: "audio/49-sentence.mp3" },
+      { id: 50, en: "species", zh: "物種", ipa: "[ˈspiʃiz]", exEn: "There are two species of wolves in North America.", exZh: "北美洲的狼有兩種。", wordAudio: "audio/50-word.mp3", sentenceAudio: "audio/50-sentence.mp3" },
+      { id: 51, en: "web", zh: "蜘蛛網；網狀物", ipa: "[wɛb]", exEn: "This is the largest spider web I have ever seen.", exZh: "這是我看過最大的蜘蛛網。", wordAudio: "audio/51-word.mp3", sentenceAudio: "audio/51-sentence.mp3" }
+    ];
+
+    const list = document.getElementById("list");
+    const search = document.getElementById("search");
+    const countText = document.getElementById("countText");
+    const vocabView = document.getElementById("vocabView");
+    const quizView = document.getElementById("quizView");
+    const tabVocab = document.getElementById("tabVocab");
+    const tabQuiz = document.getElementById("tabQuiz");
+    const toggleZh = document.getElementById("toggleZh");
+    const toggleIpa = document.getElementById("toggleIpa");
+    const modeZhToEn = document.getElementById("modeZhToEn");
+    const modeEnToZh = document.getElementById("modeEnToZh");
+    const questionText = document.getElementById("questionText");
+    const optionsEl = document.getElementById("options");
+    const resultEl = document.getElementById("result");
+    const nextBtn = document.getElementById("nextBtn");
+
+    let showZh = true;
+    let showIpa = true;
+    let quizType = "zhToEn";
+    let question = null;
+    let openExamples = new Set();
+    let currentAudio = null;
+
+    function playAudio(src, label) {
+      if (currentAudio) {
+        currentAudio.pause();
+        currentAudio.currentTime = 0;
+      }
+
+      const audio = new Audio(src);
+      currentAudio = audio;
+
+      audio.play().catch(() => {
+        alert(`找不到或無法播放音檔：${label}\n請確認檔名是否為 ${src}`);
+      });
+    }
+
+    function toggleExample(id) {
+      if (openExamples.has(id)) openExamples.delete(id);
+      else openExamples.add(id);
+      renderList();
+    }
+
+    function renderList() {
+      const keyword = search.value.trim();
+      const key = keyword.toLowerCase();
+
+      const filtered = VOCAB.filter(v =>
+        !key ||
+        v.en.toLowerCase().includes(key) ||
+        v.zh.includes(keyword) ||
+        String(v.id).includes(keyword)
+      );
+
+      countText.textContent = `共 ${filtered.length} 個單字。可分開播放單字音檔與例句音檔。`;
+
+      list.innerHTML = filtered.map(v => `
+        <div class="card">
+          <div class="card-top">
+            <div class="word-info">
+              <div class="num">${String(v.id).padStart(2, "0")}</div>
+              <div class="en">${v.en}</div>
+              ${showIpa ? `<div class="ipa">${v.ipa}</div>` : ``}
+              ${showZh ? `<div class="zh">${v.zh}</div>` : ``}
+            </div>
+
+            <div class="rightbtns">
+              <button class="play" onclick="playAudio('${v.wordAudio}', '${v.en} 單字')">單字</button>
+              <button class="examplebtn" onclick="toggleExample(${v.id})">${openExamples.has(v.id) ? "收起" : "例句"}</button>
+            </div>
+          </div>
+
+          ${openExamples.has(v.id) ? `
+            <div class="examplebox">
+              <div class="audio-row">
+                <button class="audiobtn" onclick="playAudio('${v.wordAudio}', '${v.en} 單字')">播單字</button>
+                <button class="audiobtn" onclick="playAudio('${v.sentenceAudio}', '${v.en} 例句')">播例句</button>
+              </div>
+              <div class="example-en">${v.exEn}</div>
+              <div class="example-zh">${v.exZh}</div>
+            </div>
+          ` : ``}
+        </div>
+      `).join("");
+    }
+
+    function shuffle(arr) {
+      const a = [...arr];
+      for (let i = a.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [a[i], a[j]] = [a[j], a[i]];
+      }
+      return a;
+    }
+
+    function makeQuestion() {
+      const answer = VOCAB[Math.floor(Math.random() * VOCAB.length)];
+      const others = shuffle(VOCAB.filter(v => v.id !== answer.id)).slice(0, 3);
+      question = { answer, options: shuffle([answer, ...others]) };
+      renderQuestion();
+    }
+
+    function renderQuestion() {
+      resultEl.classList.add("hidden");
+      resultEl.textContent = "";
+
+      if (quizType === "zhToEn") {
+        questionText.textContent = `「${question.answer.zh}」的英文是？`;
+      } else {
+        questionText.innerHTML = `
+          <div style="display:flex;justify-content:space-between;align-items:center;gap:8px;">
+            <span>${question.answer.en}</span>
+            <button class="play" onclick="playAudio('${question.answer.wordAudio}', '${question.answer.en} 單字')">單字</button>
+          </div>
+        `;
+      }
+
+      optionsEl.innerHTML = question.options.map(opt => `
+        <button class="option" onclick="checkAnswer(${opt.id})">
+          ${quizType === "zhToEn" ? opt.en : opt.zh}
+        </button>
+      `).join("");
+    }
+
+    function checkAnswer(id) {
+      const selected = question.options.find(o => o.id === id);
+      resultEl.classList.remove("hidden");
+
+      if (selected.id === question.answer.id) {
+        resultEl.textContent = `答對了：${question.answer.en}`;
+        playAudio(question.answer.wordAudio, question.answer.en + " 單字");
+      } else {
+        resultEl.textContent = `答錯了，正確答案是 ${question.answer.en}`;
+      }
+    }
+
+    window.playAudio = playAudio;
+    window.checkAnswer = checkAnswer;
+    window.toggleExample = toggleExample;
+
+    tabVocab.onclick = () => {
+      tabVocab.classList.add("active");
+      tabQuiz.classList.remove("active");
+      vocabView.classList.remove("hidden");
+      quizView.classList.add("hidden");
+    };
+
+    tabQuiz.onclick = () => {
+      tabQuiz.classList.add("active");
+      tabVocab.classList.remove("active");
+      quizView.classList.remove("hidden");
+      vocabView.classList.add("hidden");
+      if (!question) makeQuestion();
+    };
+
+    toggleZh.onclick = () => {
+      showZh = !showZh;
+      toggleZh.textContent = `中文：${showZh ? "顯示" : "隱藏"}`;
+      renderList();
+    };
+
+    toggleIpa.onclick = () => {
+      showIpa = !showIpa;
+      toggleIpa.textContent = `音標：${showIpa ? "顯示" : "隱藏"}`;
+      renderList();
+    };
+
+    modeZhToEn.onclick = () => {
+      quizType = "zhToEn";
+      modeZhToEn.classList.add("active");
+      modeEnToZh.classList.remove("active");
+      makeQuestion();
+    };
+
+    modeEnToZh.onclick = () => {
+      quizType = "enToZh";
+      modeEnToZh.classList.add("active");
+      modeZhToEn.classList.remove("active");
+      makeQuestion();
+    };
+
+    nextBtn.onclick = () => makeQuestion();
+    search.oninput = renderList;
+
+    renderList();
+  </script>
+</body>
+</html>
 
